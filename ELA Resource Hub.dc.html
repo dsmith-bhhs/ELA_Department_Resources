@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Libre+Franklin:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #E9E6DD; -webkit-font-smoothing: antialiased; }
+  </style>
+</helmet>
+
+<section style="display:flex; flex-direction:column; gap:24px; padding:56px 56px 0 56px; font-family:'Libre Franklin', Helvetica, sans-serif;">
+  <div id="2a" style="width:1220px; display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="#2a" style="font-family:ui-monospace, Menlo, monospace; font-size:12px; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:6px; padding:4px 9px; text-decoration:none;">2a</a>
+      <span style="font-size:13px; color:#5A5E6A;">Merged — <a href="#1a" style="color:#1C2A5E;">1a</a> shell + school filter, <a href="#1c" style="color:#1C2A5E;">1c</a> tabs, collapsible meeting schedule spotlighting the next meeting</span>
+    </div>
+
+    <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(16,27,61,0.10);">
+
+      <!-- Masthead -->
+      <div style="background:#1C2A5E; padding:26px 36px; display:flex; align-items:center; gap:22px;">
+        <div style="display:flex; gap:10px; flex:none;">
+          <img src="assets/image1.png" alt="BHHS shield" style="height:56px; width:auto;">
+          <img src="assets/image2.png" alt="HCC shield" style="height:56px; width:auto;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:3px;">
+          <span style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#9FAAD1; font-weight:600;">Byram Hills Central School District</span>
+          <h1 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:32px; font-weight:700; color:#FFFFFF; line-height:1.1;">ELA Department Resources</h1>
+        </div>
+        <div style="margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+          <span style="font-family:'Source Serif 4', Georgia, serif; font-size:20px; font-style:italic; color:#C9D1E8;">2026–2027</span>
+          <span style="font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#7E8BB8; font-weight:600;">Faculty edition</span>
+        </div>
+      </div>
+
+      <!-- Command bar -->
+      <div style="background:#FFFFFF; border-bottom:1px solid #E3DFD4; padding:14px 36px; display:flex; align-items:center; gap:14px;">
+        <input type="text" value="{{ q2 }}" onChange="{{ setQ2 }}" placeholder="Search all sections — try &quot;Turnitin&quot;, &quot;reading&quot;, &quot;AI&quot;…" style="flex:1; font-family:'Libre Franklin', Helvetica, sans-serif; font-size:14px; color:#23262F; background:#F7F5F0; border:1px solid #E3DFD4; border-radius:8px; padding:10px 14px; outline:none;">
+        <div style="display:flex; gap:6px;">
+          <sc-for list="{{ chips2 }}" as="chip" hint-placeholder-count="3">
+            <button onClick="{{ chip.pick }}" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:999px; cursor:pointer; border:1px solid {{ chip.bd }}; background:{{ chip.bg }}; color:{{ chip.fg }};">{{ chip.label }}</button>
+          </sc-for>
+        </div>
+        <span style="font-size:12px; color:#8A8D98; flex:none;">{{ countLabel2 }}</span>
+      </div>
+
+      <!-- Tabs -->
+      <div style="display:flex; gap:2px; padding:12px 28px 0 28px; border-bottom:1px solid #E3DFD4; background:#F1EEE6; flex-wrap:wrap;">
+        <sc-for list="{{ tabs2 }}" as="tab" hint-placeholder-count="6">
+          <button onClick="{{ tab.pick }}" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; font-weight:600; padding:10px 16px; border-radius:8px 8px 0 0; cursor:pointer; border:1px solid {{ tab.bd }}; border-bottom:none; background:{{ tab.bg }}; color:{{ tab.fg }}; margin-bottom:-1px;">{{ tab.name }}</button>
+        </sc-for>
+      </div>
+
+      <!-- Panel -->
+      <div style="padding:28px 36px 36px 36px; display:flex; flex-direction:column; gap:26px; min-height:380px; background:#FFFFFF;">
+
+        <!-- Search results view -->
+        <sc-if value="{{ searching2 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:28px;">
+            <sc-for list="{{ groups2 }}" as="group" hint-placeholder-count="2">
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; align-items:baseline; gap:12px;">
+                  <h2 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:600; color:#1C2A5E;">{{ group.name }}</h2>
+                  <sc-if value="{{ group.isConf }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:4px; padding:3px 7px;">Confidential</span>
+                  </sc-if>
+                  <div style="height:1px; background:#E3DFD4; flex:1;"></div>
+                  <span style="font-size:11.5px; color:#8A8D98;">{{ group.countLabel }}</span>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px;">
+                  <sc-for list="{{ group.items }}" as="item" hint-placeholder-count="3">
+                    <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:17px 19px; display:flex; flex-direction:column; gap:8px;">
+                      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+                        <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:16.5px; font-weight:600; color:#1C2A5E; text-decoration:none; line-height:1.35;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                        <span style="flex:none; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:{{ item.tagBg }}; color:{{ item.tagFg }};">{{ item.tag }}</span>
+                      </div>
+                      <p style="margin:0; font-size:13px; line-height:1.55; color:#5A5E6A;">{{ item.d }}</p>
+                      <sc-if value="{{ item.due }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:12px; font-weight:700; color:#A61B1B;">{{ item.due }}</span>
+                      </sc-if>
+                      <sc-if value="{{ item.hasSub }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                          <sc-for list="{{ item.sub }}" as="s" hint-placeholder-count="2">
+                            <a href="{{ s.u }}" target="_blank" style="font-size:12px; font-weight:600; color:#A61B1B; text-decoration:none; background:#FFFFFF; border:1px solid #EBD8D8; border-radius:6px; padding:5px 10px;" style-hover="background:#F7EDED;">{{ s.l }}</a>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- Tab panel view -->
+        <sc-if value="{{ notSearching2 }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; gap:24px;">
+
+            <!-- Next-meeting spotlight + collapsible schedule (Planning tab) -->
+            <sc-if value="{{ panel2Planning }}" hint-placeholder-val="{{ true }}">
+              <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:12px; padding:22px 26px; display:flex; flex-direction:column; gap:16px;">
+                <div style="display:flex; align-items:center; gap:22px;">
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; font-weight:700; color:#A61B1B;">Next department meeting</span>
+                    <span style="font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:700; color:#1C2A5E; line-height:1.1;">{{ next2Date }}</span>
+                    <span style="font-size:13px; color:#5A5E6A;">{{ next2Bld }}</span>
+                  </div>
+                  <div style="margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                    <button onClick="{{ toggleSched2 }}" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:12.5px; font-weight:600; color:#1C2A5E; background:#FFFFFF; border:1px solid #E3DFD4; border-radius:8px; padding:9px 16px; cursor:pointer;" style-hover="background:#F0EDE5;">{{ schedLabel2 }}</button>
+                    <sc-if value="{{ notSched2 }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:11.5px; color:#8A8D98;">{{ schedSummary2 }}</span>
+                    </sc-if>
+                  </div>
+                </div>
+                <sc-if value="{{ sched2 }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; flex-direction:column; gap:10px; border-top:1px solid #E3DFD4; padding-top:16px;">
+                    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                      <sc-for list="{{ meetings2 }}" as="m" hint-placeholder-count="6">
+                        <div style="border:1px solid {{ m.bd }}; background:{{ m.bg }}; color:{{ m.fg }}; border-radius:8px; padding:8px 12px; display:flex; flex-direction:column; gap:2px; min-width:84px;">
+                          <div style="display:flex; gap:7px; align-items:center;">
+                            <span style="font-weight:700; font-size:13.5px;">{{ m.date }}</span>
+                            <sc-if value="{{ m.isNext }}" hint-placeholder-val="{{ false }}">
+                              <span style="font-size:9px; letter-spacing:0.1em; font-weight:700; background:#FFFFFF; color:#A61B1B; border-radius:4px; padding:2px 5px;">NEXT</span>
+                            </sc-if>
+                          </div>
+                          <span style="font-size:10.5px; opacity:0.78;">{{ m.bld }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <span style="font-size:11px; color:#A9ACB5;">Past meetings are dimmed. Wednesdays unless noted.</span>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <!-- Confidential banner + dark cards -->
+            <sc-if value="{{ panel2Confidential }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#101B3D; border-radius:12px; padding:24px 28px; display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span style="font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:4px; padding:4px 8px;">Confidential</span>
+                  <span style="font-size:12.5px; color:#9FAAD1;">Teacher use only — do not share student data.</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                  <sc-for list="{{ conf2 }}" as="item" hint-placeholder-count="2">
+                    <div style="border:1px solid #2A3A6E; border-radius:9px; padding:15px 18px; display:flex; flex-direction:column; gap:6px;">
+                      <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start;">
+                        <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#FFFFFF; text-decoration:none;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                        <span style="flex:none; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:#22315F; color:#9FAAD1;">{{ item.tag }}</span>
+                      </div>
+                      <p style="margin:0; font-size:12.5px; line-height:1.55; color:#8B97C1;">{{ item.d }}</p>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- Generic cards for active tab -->
+            <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px;">
+              <sc-for list="{{ panelItems2 }}" as="item" hint-placeholder-count="2">
+                <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:17px 19px; display:flex; flex-direction:column; gap:8px;">
+                  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+                    <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:16.5px; font-weight:600; color:#1C2A5E; text-decoration:none; line-height:1.35;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                    <span style="flex:none; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:{{ item.tagBg }}; color:{{ item.tagFg }};">{{ item.tag }}</span>
+                  </div>
+                  <p style="margin:0; font-size:13px; line-height:1.55; color:#5A5E6A;">{{ item.d }}</p>
+                  <sc-if value="{{ item.due }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:12px; font-weight:700; color:#A61B1B;">{{ item.due }}</span>
+                  </sc-if>
+                  <sc-if value="{{ item.hasSub }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                      <sc-for list="{{ item.sub }}" as="s" hint-placeholder-count="2">
+                        <a href="{{ s.u }}" target="_blank" style="font-size:12px; font-weight:600; color:#A61B1B; text-decoration:none; background:#FFFFFF; border:1px solid #EBD8D8; border-radius:6px; padding:5px 10px;" style-hover="background:#F7EDED;">{{ s.l }}</a>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Teacher tables (Schedules tab) -->
+            <sc-if value="{{ panel2Schedules }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="width:10px; height:10px; border-radius:3px; background:#1C2A5E;"></span>
+                    <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">BHHS English</span>
+                  </div>
+                  <div style="display:flex; flex-direction:column;">
+                    <sc-for list="{{ bhhsTeachers }}" as="t" hint-placeholder-count="4">
+                      <div style="display:grid; grid-template-columns:150px 1fr; gap:12px; padding:7px 0; border-bottom:1px solid #ECE9E0; font-size:12.5px;">
+                        <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                        <span style="color:#5A5E6A;">{{ t.c }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <span style="font-size:11px; color:#8A8D98;">* Co-taught section(s)</span>
+                </div>
+                <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="width:10px; height:10px; border-radius:3px; background:#A61B1B;"></span>
+                    <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">HCC English</span>
+                  </div>
+                  <div style="display:flex; flex-direction:column;">
+                    <sc-for list="{{ hccTeachers }}" as="t" hint-placeholder-count="4">
+                      <div style="display:grid; grid-template-columns:150px 1fr 80px; gap:12px; padding:7px 0; border-bottom:1px solid #ECE9E0; font-size:12.5px;">
+                        <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                        <span style="color:#5A5E6A;">{{ t.course }}</span>
+                        <span style="color:#5A5E6A;">{{ t.per }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <span style="font-size:11px; color:#8A8D98;">* Co-taught section</span>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- Learning community dates (Growth tab) -->
+            <sc-if value="{{ panel2Growth }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <span style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; color:#8A8D98;">Learning community dates · HCC 2:40–3:40 PM · BHHS 2:35–3:35 PM</span>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                  <sc-for list="{{ lcDates }}" as="lc" hint-placeholder-count="4">
+                    <div style="border:1px solid #E3DFD4; background:#F7F5F0; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px;">
+                      <span style="font-weight:600; font-size:12.5px; color:#23262F;">{{ lc.date }}</span>
+                      <span style="font-size:10px; letter-spacing:0.08em; font-weight:700; border-radius:4px; padding:2px 6px; background:{{ lc.bg }}; color:{{ lc.fg }};">{{ lc.type }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:24px; padding:56px; font-family:'Libre Franklin', Helvetica, sans-serif;">
+  <div style="display:flex; flex-wrap:wrap; gap:56px; align-items:flex-start;">
+
+    <!-- ============================== OPTION 1A — SEARCH-FIRST HUB ============================== -->
+    <div id="1a" style="flex:none; width:1220px; display:flex; flex-direction:column; gap:14px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="#1a" style="font-family:ui-monospace, Menlo, monospace; font-size:12px; font-weight:700; background:#1C2A5E; color:#FFFFFF; border-radius:6px; padding:4px 9px; text-decoration:none;">1a</a>
+        <span style="font-size:13px; color:#5A5E6A;">Search-first hub — global search, BHHS/HCC filter, next-meeting strip</span>
+      </div>
+
+      <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(16,27,61,0.10);">
+
+        <!-- Masthead -->
+        <div style="background:#1C2A5E; padding:26px 36px; display:flex; align-items:center; gap:22px;">
+          <div style="display:flex; gap:10px; flex:none;">
+            <img src="assets/image1.png" alt="BHHS shield" style="height:56px; width:auto;">
+            <img src="assets/image2.png" alt="HCC shield" style="height:56px; width:auto;">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <span style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#9FAAD1; font-weight:600;">Byram Hills Central School District</span>
+            <h1 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:32px; font-weight:700; color:#FFFFFF; line-height:1.1;">ELA Department Resources</h1>
+          </div>
+          <div style="margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+            <span style="font-family:'Source Serif 4', Georgia, serif; font-size:20px; font-style:italic; color:#C9D1E8;">2026–2027</span>
+            <span style="font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#7E8BB8; font-weight:600;">Faculty edition</span>
+          </div>
+        </div>
+
+        <!-- Command bar -->
+        <div style="background:#FFFFFF; border-bottom:1px solid #E3DFD4; padding:14px 36px; display:flex; align-items:center; gap:14px;">
+          <input type="text" value="{{ qA }}" onChange="{{ setQA }}" placeholder="Search resources — try &quot;Turnitin&quot;, &quot;reading&quot;, &quot;AI&quot;…" style="flex:1; font-family:'Libre Franklin', Helvetica, sans-serif; font-size:14px; color:#23262F; background:#F7F5F0; border:1px solid #E3DFD4; border-radius:8px; padding:10px 14px; outline:none;">
+          <div style="display:flex; gap:6px;">
+            <sc-for list="{{ chipsA }}" as="chip" hint-placeholder-count="3">
+              <button onClick="{{ chip.pick }}" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:999px; cursor:pointer; border:1px solid {{ chip.bd }}; background:{{ chip.bg }}; color:{{ chip.fg }};">{{ chip.label }}</button>
+            </sc-for>
+          </div>
+          <span style="font-size:12px; color:#8A8D98; flex:none;">{{ countLabelA }}</span>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:30px 36px 36px 36px; display:flex; flex-direction:column; gap:34px;">
+
+          <sc-for list="{{ groupsA }}" as="group" hint-placeholder-count="2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="display:flex; align-items:baseline; gap:14px;">
+                <h2 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:21px; font-weight:600; color:#1C2A5E;">{{ group.name }}</h2>
+                <div style="height:1px; background:#E3DFD4; flex:1;"></div>
+                <span style="font-size:11.5px; color:#8A8D98;">{{ group.countLabel }}</span>
+              </div>
+
+              <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px;">
+                <sc-for list="{{ group.items }}" as="item" hint-placeholder-count="3">
+                  <div style="background:#FFFFFF; border:1px solid #E3DFD4; border-radius:10px; padding:17px 19px; display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+                      <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:16.5px; font-weight:600; color:#1C2A5E; text-decoration:none; line-height:1.35;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                      <span style="flex:none; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:{{ item.tagBg }}; color:{{ item.tagFg }};">{{ item.tag }}</span>
+                    </div>
+                    <p style="margin:0; font-size:13px; line-height:1.55; color:#5A5E6A;">{{ item.d }}</p>
+                    <sc-if value="{{ item.due }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:12px; font-weight:700; color:#A61B1B;">{{ item.due }}</span>
+                    </sc-if>
+                    <sc-if value="{{ item.hasSub }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:2px;">
+                        <sc-for list="{{ item.sub }}" as="s" hint-placeholder-count="2">
+                          <a href="{{ s.u }}" target="_blank" style="font-size:12px; font-weight:600; color:#A61B1B; text-decoration:none; background:#F7EDED; border:1px solid #EBD8D8; border-radius:6px; padding:5px 10px;" style-hover="background:#F2E0E0;">{{ s.l }}</a>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+
+              <!-- Meeting strip (planning only) -->
+              <sc-if value="{{ group.isPlanning }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <span style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; color:#8A8D98;">Department meeting schedule</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <sc-for list="{{ meetingsA }}" as="m" hint-placeholder-count="6">
+                      <div style="border:1px solid {{ m.bd }}; background:{{ m.bg }}; color:{{ m.fg }}; border-radius:8px; padding:8px 12px; display:flex; flex-direction:column; gap:2px; min-width:84px;">
+                        <div style="display:flex; gap:7px; align-items:center;">
+                          <span style="font-weight:700; font-size:13.5px;">{{ m.date }}</span>
+                          <sc-if value="{{ m.isNext }}" hint-placeholder-val="{{ false }}">
+                            <span style="font-size:9px; letter-spacing:0.1em; font-weight:700; background:#FFFFFF; color:#A61B1B; border-radius:4px; padding:2px 5px;">NEXT</span>
+                          </sc-if>
+                        </div>
+                        <span style="font-size:10.5px; opacity:0.78;">{{ m.bld }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- Teacher tables (schedules only) -->
+              <sc-if value="{{ group.isSchedules }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                  <div style="background:#FFFFFF; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="width:10px; height:10px; border-radius:3px; background:#1C2A5E;"></span>
+                      <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">BHHS English</span>
+                    </div>
+                    <div style="display:flex; flex-direction:column;">
+                      <sc-for list="{{ bhhsTeachers }}" as="t" hint-placeholder-count="4">
+                        <div style="display:grid; grid-template-columns:150px 1fr; gap:12px; padding:7px 0; border-bottom:1px solid #F0EDE5; font-size:12.5px;">
+                          <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                          <span style="color:#5A5E6A;">{{ t.c }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <span style="font-size:11px; color:#8A8D98;">* Co-taught section(s)</span>
+                  </div>
+                  <div style="background:#FFFFFF; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="width:10px; height:10px; border-radius:3px; background:#A61B1B;"></span>
+                      <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">HCC English</span>
+                    </div>
+                    <div style="display:flex; flex-direction:column;">
+                      <sc-for list="{{ hccTeachers }}" as="t" hint-placeholder-count="4">
+                        <div style="display:grid; grid-template-columns:150px 1fr 80px; gap:12px; padding:7px 0; border-bottom:1px solid #F0EDE5; font-size:12.5px;">
+                          <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                          <span style="color:#5A5E6A;">{{ t.course }}</span>
+                          <span style="color:#5A5E6A;">{{ t.per }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <span style="font-size:11px; color:#8A8D98;">* Co-taught section · Periods listed per teacher</span>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- Learning communities dates (growth only) -->
+              <sc-if value="{{ group.isGrowth }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <span style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; color:#8A8D98;">Learning community dates · HCC 2:40–3:40 PM · BHHS 2:35–3:35 PM</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <sc-for list="{{ lcDates }}" as="lc" hint-placeholder-count="4">
+                      <div style="border:1px solid #E3DFD4; background:#FFFFFF; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px;">
+                        <span style="font-weight:600; font-size:12.5px; color:#23262F;">{{ lc.date }}</span>
+                        <span style="font-size:10px; letter-spacing:0.08em; font-weight:700; border-radius:4px; padding:2px 6px; background:{{ lc.bg }}; color:{{ lc.fg }};">{{ lc.type }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <!-- Confidential -->
+          <sc-if value="{{ showConfA }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#101B3D; border-radius:12px; padding:24px 28px; display:flex; flex-direction:column; gap:14px;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <span style="font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:4px; padding:4px 8px;">Confidential</span>
+                <span style="font-size:12.5px; color:#9FAAD1;">Teacher use only — do not share student data.</span>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <sc-for list="{{ confA }}" as="item" hint-placeholder-count="2">
+                  <div style="border:1px solid #2A3A6E; border-radius:9px; padding:15px 18px; display:flex; flex-direction:column; gap:6px;">
+                    <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start;">
+                      <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#FFFFFF; text-decoration:none;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                      <span style="flex:none; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:#22315F; color:#9FAAD1;">{{ item.tag }}</span>
+                    </div>
+                    <p style="margin:0; font-size:12.5px; line-height:1.55; color:#8B97C1;">{{ item.d }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== OPTION 1B — DIRECTORY WITH RAIL ============================== -->
+    <div id="1b" style="flex:none; width:1160px; display:flex; flex-direction:column; gap:14px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="#1b" style="font-family:ui-monospace, Menlo, monospace; font-size:12px; font-weight:700; background:#1C2A5E; color:#FFFFFF; border-radius:6px; padding:4px 9px; text-decoration:none;">1b</a>
+        <span style="font-size:13px; color:#5A5E6A;">Directory with sidebar — section nav, dense rows, copy-link buttons</span>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E3DFD4; border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(16,27,61,0.10);">
+
+        <!-- Masthead -->
+        <div style="padding:30px 40px 24px 40px; border-bottom:3px double #1C2A5E; display:flex; align-items:center; gap:20px;">
+          <div style="display:flex; gap:8px; flex:none;">
+            <img src="assets/image1.png" alt="BHHS shield" style="height:48px; width:auto;">
+            <img src="assets/image2.png" alt="HCC shield" style="height:48px; width:auto;">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <h1 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:30px; font-weight:700; color:#1C2A5E; line-height:1.1;">ELA Department Resources</h1>
+            <span style="font-size:12.5px; color:#8A8D98;">Byram Hills Central School District · 2026–2027 · Faculty edition</span>
+          </div>
+          <div style="margin-left:auto; text-align:right; display:flex; flex-direction:column; gap:2px;">
+            <span style="font-size:12px; font-weight:600; color:#A61B1B;">Next meeting</span>
+            <span style="font-family:'Source Serif 4', Georgia, serif; font-size:16px; font-weight:600; color:#1C2A5E;">{{ nextMeetingShort }}</span>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:250px 1fr;">
+          <!-- Rail -->
+          <div style="border-right:1px solid #E3DFD4; background:#F7F5F0; padding:24px 20px; display:flex; flex-direction:column; gap:18px;">
+            <input type="text" value="{{ qB }}" onChange="{{ setQB }}" placeholder="Filter this page…" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; color:#23262F; background:#FFFFFF; border:1px solid #E3DFD4; border-radius:8px; padding:9px 12px; outline:none;">
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <sc-for list="{{ navB }}" as="nv" hint-placeholder-count="6">
+                <a href="#b-{{ nv.id }}" style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 10px; border-radius:7px; text-decoration:none; color:#23262F; font-size:13px; font-weight:500;" style-hover="background:#EFEBE1;">
+                  <span>{{ nv.name }}</span>
+                  <span style="font-size:11px; color:#8A8D98;">{{ nv.count }}</span>
+                </a>
+              </sc-for>
+            </div>
+            <div style="border-top:1px solid #E3DFD4; padding-top:14px; display:flex; flex-direction:column; gap:6px;">
+              <span style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#A61B1B;">Faculty use only</span>
+              <span style="font-size:11.5px; line-height:1.5; color:#8A8D98;">This page includes confidential student-data links. Do not share outside the department.</span>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div style="padding:28px 40px 40px 40px; display:flex; flex-direction:column; gap:30px;">
+            <sc-for list="{{ groupsB }}" as="group" hint-placeholder-count="2">
+              <div id="b-{{ group.id }}" style="display:flex; flex-direction:column;">
+                <div style="display:flex; align-items:center; gap:12px; padding-bottom:10px; border-bottom:2px solid {{ group.ruleColor }};">
+                  <h2 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:19px; font-weight:600; color:{{ group.headFg }};">{{ group.name }}</h2>
+                  <sc-if value="{{ group.confidential }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:4px; padding:3px 7px;">Confidential — teacher use only</span>
+                  </sc-if>
+                </div>
+
+                <sc-for list="{{ group.items }}" as="item" hint-placeholder-count="3">
+                  <div style="display:grid; grid-template-columns:1fr auto; gap:3px 16px; padding:13px 0; border-bottom:1px solid #F0EDE5; align-items:start;">
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                      <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E; text-decoration:none;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                      <span style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:3px 8px; background:{{ item.tagBg }}; color:{{ item.tagFg }};">{{ item.tag }}</span>
+                      <sc-if value="{{ item.due }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:11.5px; font-weight:700; color:#A61B1B;">{{ item.due }}</span>
+                      </sc-if>
+                    </div>
+                    <button onClick="{{ item.copy }}" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:11px; font-weight:600; color:{{ item.copyFg }}; background:{{ item.copyBg }}; border:1px solid #E3DFD4; border-radius:6px; padding:5px 10px; cursor:pointer;" style-hover="background:#F0EDE5;">{{ item.copyLabel }}</button>
+                    <p style="grid-column:1 / -1; margin:0; font-size:12.5px; line-height:1.55; color:#5A5E6A; max-width:640px;">{{ item.d }}</p>
+                    <sc-if value="{{ item.hasSub }}" hint-placeholder-val="{{ false }}">
+                      <div style="grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;">
+                        <sc-for list="{{ item.sub }}" as="s" hint-placeholder-count="2">
+                          <a href="{{ s.u }}" target="_blank" style="font-size:11.5px; font-weight:600; color:#A61B1B; text-decoration:none; background:#F7EDED; border:1px solid #EBD8D8; border-radius:6px; padding:4px 9px;" style-hover="background:#F2E0E0;">{{ s.l }}</a>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+
+                <!-- Compact meeting table in planning -->
+                <sc-if value="{{ group.isPlanning }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:14px; display:flex; flex-direction:column; gap:8px;">
+                    <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#8A8D98;">Meeting schedule</span>
+                    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:4px 20px;">
+                      <sc-for list="{{ meetingsA }}" as="m" hint-placeholder-count="6">
+                        <div style="display:flex; justify-content:space-between; gap:10px; padding:6px 10px; border-radius:6px; background:{{ m.rowBg }}; font-size:12.5px;">
+                          <span style="font-weight:700; color:{{ m.rowFg }};">{{ m.date }}</span>
+                          <span style="color:#5A5E6A; text-align:right;">{{ m.bldShort }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ group.isSchedules }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+                    <div style="display:flex; flex-direction:column;">
+                      <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#1C2A5E; padding-bottom:6px;">BHHS English</span>
+                      <sc-for list="{{ bhhsTeachers }}" as="t" hint-placeholder-count="4">
+                        <div style="display:grid; grid-template-columns:130px 1fr; gap:10px; padding:6px 0; border-bottom:1px solid #F0EDE5; font-size:12px;">
+                          <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                          <span style="color:#5A5E6A;">{{ t.c }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <div style="display:flex; flex-direction:column;">
+                      <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#A61B1B; padding-bottom:6px;">HCC English</span>
+                      <sc-for list="{{ hccTeachers }}" as="t" hint-placeholder-count="4">
+                        <div style="display:grid; grid-template-columns:130px 1fr 74px; gap:10px; padding:6px 0; border-bottom:1px solid #F0EDE5; font-size:12px;">
+                          <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                          <span style="color:#5A5E6A;">{{ t.course }}</span>
+                          <span style="color:#5A5E6A;">{{ t.per }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ group.isGrowth }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:14px; display:flex; flex-direction:column; gap:8px;">
+                    <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#8A8D98;">Learning communities · HCC 2:40–3:40 · BHHS 2:35–3:35</span>
+                    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                      <sc-for list="{{ lcDates }}" as="lc" hint-placeholder-count="4">
+                        <div style="border:1px solid #E3DFD4; border-radius:6px; padding:6px 10px; display:flex; gap:8px; align-items:center; font-size:12px;">
+                          <span style="font-weight:600; color:#23262F;">{{ lc.date }}</span>
+                          <span style="font-size:9.5px; letter-spacing:0.08em; font-weight:700; border-radius:4px; padding:2px 5px; background:{{ lc.bg }}; color:{{ lc.fg }};">{{ lc.type }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== OPTION 1C — TABBED BINDER ============================== -->
+    <div id="1c" style="flex:none; width:1120px; display:flex; flex-direction:column; gap:14px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="#1c" style="font-family:ui-monospace, Menlo, monospace; font-size:12px; font-weight:700; background:#1C2A5E; color:#FFFFFF; border-radius:6px; padding:4px 9px; text-decoration:none;">1c</a>
+        <span style="font-size:13px; color:#5A5E6A;">Tabbed binder — one section at a time, persistent next-meeting banner</span>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E3DFD4; border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(16,27,61,0.10);">
+
+        <!-- Masthead -->
+        <div style="background:#1C2A5E; padding:22px 36px; display:flex; align-items:center; gap:18px;">
+          <img src="assets/image1.png" alt="BHHS shield" style="height:44px; width:auto;">
+          <img src="assets/image2.png" alt="HCC shield" style="height:44px; width:auto;">
+          <div style="display:flex; flex-direction:column; gap:1px;">
+            <h1 style="margin:0; font-family:'Source Serif 4', Georgia, serif; font-size:26px; font-weight:700; color:#FFFFFF;">ELA Department Resources</h1>
+            <span style="font-size:11.5px; color:#9FAAD1;">Byram Hills · 2026–2027 · Faculty edition</span>
+          </div>
+        </div>
+
+        <!-- Next-meeting banner -->
+        <sc-if value="{{ showNextBanner }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#A61B1B; color:#FFFFFF; padding:10px 36px; display:flex; align-items:center; gap:12px;">
+            <span style="font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; background:rgba(255,255,255,0.18); border-radius:4px; padding:3px 8px;">Next meeting</span>
+            <span style="font-size:13.5px; font-weight:600;">{{ nextMeetingLong }}</span>
+          </div>
+        </sc-if>
+
+        <!-- Tabs -->
+        <div style="display:flex; gap:2px; padding:14px 28px 0 28px; border-bottom:1px solid #E3DFD4; background:#F7F5F0; flex-wrap:wrap;">
+          <sc-for list="{{ tabsC }}" as="tab" hint-placeholder-count="6">
+            <button onClick="{{ tab.pick }}" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; font-weight:600; padding:10px 16px; border-radius:8px 8px 0 0; cursor:pointer; border:1px solid {{ tab.bd }}; border-bottom:none; background:{{ tab.bg }}; color:{{ tab.fg }}; margin-bottom:-1px;">{{ tab.name }}</button>
+          </sc-for>
+        </div>
+
+        <!-- Panel -->
+        <div style="padding:30px 36px 38px 36px; display:flex; flex-direction:column; gap:24px; min-height:420px;">
+          <sc-if value="{{ panelConfidential }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; align-items:center; gap:12px; background:#FBEFEF; border:1px solid #EBD8D8; border-radius:8px; padding:12px 16px;">
+              <span style="font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:4px; padding:4px 8px;">Confidential</span>
+              <span style="font-size:13px; color:#7A2020;">Teacher use only. Do not share student data outside the department.</span>
+            </div>
+          </sc-if>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <sc-for list="{{ panelItems }}" as="item" hint-placeholder-count="2">
+              <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+                  <a href="{{ item.u }}" target="_blank" style="font-family:'Source Serif 4', Georgia, serif; font-size:17px; font-weight:600; color:#1C2A5E; text-decoration:none; line-height:1.35;" style-hover="text-decoration:underline;">{{ item.t }}</a>
+                  <span style="flex:none; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:{{ item.tagBg }}; color:{{ item.tagFg }};">{{ item.tag }}</span>
+                </div>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:#5A5E6A;">{{ item.d }}</p>
+                <sc-if value="{{ item.due }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:12px; font-weight:700; color:#A61B1B;">{{ item.due }}</span>
+                </sc-if>
+                <sc-if value="{{ item.hasSub }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                    <sc-for list="{{ item.sub }}" as="s" hint-placeholder-count="2">
+                      <a href="{{ s.u }}" target="_blank" style="font-size:12px; font-weight:600; color:#A61B1B; text-decoration:none; background:#FFFFFF; border:1px solid #EBD8D8; border-radius:6px; padding:5px 10px;" style-hover="background:#F7EDED;">{{ s.l }}</a>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ panelPlanning }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:0;">
+              <div style="display:grid; grid-template-columns:140px 1fr; gap:16px; padding:8px 12px; background:#1C2A5E; border-radius:8px 8px 0 0; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; color:#9FAAD1;">
+                <span>Date</span><span>Building</span>
+              </div>
+              <sc-for list="{{ meetingsA }}" as="m" hint-placeholder-count="6">
+                <div style="display:grid; grid-template-columns:140px 1fr; gap:16px; padding:9px 12px; border-bottom:1px solid #F0EDE5; font-size:13px; background:{{ m.rowBg }}; align-items:center;">
+                  <div style="display:flex; gap:8px; align-items:center;">
+                    <span style="font-weight:700; color:{{ m.rowFg }};">{{ m.date }}</span>
+                    <sc-if value="{{ m.isNext }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:9px; letter-spacing:0.1em; font-weight:700; background:#A61B1B; color:#FFFFFF; border-radius:4px; padding:2px 5px;">NEXT</span>
+                    </sc-if>
+                  </div>
+                  <span style="color:#5A5E6A;">{{ m.bld }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ panelSchedules }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div style="display:flex; flex-direction:column;">
+                <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#1C2A5E; padding-bottom:6px;">BHHS English</span>
+                <sc-for list="{{ bhhsTeachers }}" as="t" hint-placeholder-count="4">
+                  <div style="display:grid; grid-template-columns:140px 1fr; gap:10px; padding:6px 0; border-bottom:1px solid #F0EDE5; font-size:12.5px;">
+                    <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                    <span style="color:#5A5E6A;">{{ t.c }}</span>
+                  </div>
+                </sc-for>
+                <span style="font-size:11px; color:#8A8D98; padding-top:6px;">* Co-taught section(s)</span>
+              </div>
+              <div style="display:flex; flex-direction:column;">
+                <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#A61B1B; padding-bottom:6px;">HCC English</span>
+                <sc-for list="{{ hccTeachers }}" as="t" hint-placeholder-count="4">
+                  <div style="display:grid; grid-template-columns:140px 1fr 74px; gap:10px; padding:6px 0; border-bottom:1px solid #F0EDE5; font-size:12.5px;">
+                    <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
+                    <span style="color:#5A5E6A;">{{ t.course }}</span>
+                    <span style="color:#5A5E6A;">{{ t.per }}</span>
+                  </div>
+                </sc-for>
+                <span style="font-size:11px; color:#8A8D98; padding-top:6px;">* Co-taught section</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ panelGrowth }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:#8A8D98;">Learning community dates · HCC 2:40–3:40 PM · BHHS 2:35–3:35 PM</span>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ lcDates }}" as="lc" hint-placeholder-count="4">
+                  <div style="border:1px solid #E3DFD4; border-radius:6px; padding:7px 11px; display:flex; gap:8px; align-items:center; font-size:12.5px;">
+                    <span style="font-weight:600; color:#23262F;">{{ lc.date }}</span>
+                    <span style="font-size:9.5px; letter-spacing:0.08em; font-weight:700; border-radius:4px; padding:2px 5px; background:{{ lc.bg }}; color:{{ lc.fg }};">{{ lc.type }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;showConfidential&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Content&quot; },
+  &quot;highlightNextMeeting&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Content&quot; }
+}">
+class Component extends DCLogic {
+  state = { qA: '', bldA: 'All', qB: '', copied: '', tabC: 'planning', q2: '', bld2: 'All', tab2: 'planning', sched2: false };
+
+  db() {
+    const meetings = [
+      ['2026-08-27', '8.27.26', 'BHHS/HCC (Superintendent\u2019s Conf Day)', 'Both'],
+      ['2026-09-16', '9.16.26', 'BHHS', 'BHHS'],
+      ['2026-09-23', '9.23.26', 'HCC', 'HCC'],
+      ['2026-10-14', '10.14.26', 'BHHS', 'BHHS'],
+      ['2026-10-28', '10.28.26', 'HCC', 'HCC'],
+      [null, 'November', 'Budget preparation \u2014 no formal meeting', 'Both'],
+      ['2026-12-09', '12.9.26', 'BHHS/HCC', 'Both'],
+      ['2027-01-13', '1.13.27', 'BHHS', 'BHHS'],
+      ['2027-01-27', '1.27.27', 'HCC', 'HCC'],
+      ['2027-02-10', '2.10.27', 'BHHS/HCC', 'Both'],
+      ['2027-03-10', '3.10.27', 'BHHS', 'BHHS'],
+      ['2027-03-27', '3.27.27', 'HCC', 'HCC'],
+      ['2027-04-14', '4.14.27', 'BHHS/HCC', 'Both'],
+      ['2027-05-12', '5.12.27', 'BHHS', 'BHHS'],
+      ['2027-05-26', '5.26.27', 'HCC', 'HCC'],
+      ['2027-06-09', '6.9.27', 'BHHS/HCC', 'Both']
+    ];
+
+    const groups = [
+      { id: 'planning', name: 'Departmental Planning', items: [
+        { t: 'ELA Department Goals', u: 'https://docs.google.com/document/d/12UGpf0mIuhWWQ03GOgd3K5fN0WY2ll8ezxJlRXOcs1Y/edit?usp=drivesdk', b: 'both', tag: '6\u201312',
+          d: 'Guides departmental work all year: literacy research (Goal 1), college-readiness alignment (Goal 2), and AI literacy integration (Goal 3).' }
+      ]},
+      { id: 'resources', name: 'Students, Teachers & Families', items: [
+        { t: 'BHHS Independent Reading', u: 'https://new.express.adobe.com/webpage/WvzUolBQqrsNG', b: 'bhhs', tag: 'BHHS',
+          d: 'Year-round independent reading, including required texts for AP Lang, AP Lit & Perspectives in Literature.',
+          sub: [
+            { l: 'Reading Suggestions (PDF)', u: 'https://drive.google.com/file/d/18XhbCn2_1I3iw3y4sLSDLya-GWPsgdzV/view?usp=sharing' },
+            { l: 'Submission Form', u: 'https://forms.gle/yW2JQB3EPtoE5t9b7' }
+          ]},
+        { t: 'HCC Independent Reading', u: 'https://new.express.adobe.com/webpage/9B4FWloGu7Mjd', b: 'hcc', tag: 'HCC',
+          d: 'Suggestions for year-round independent reading, grades 6\u20138.',
+          sub: [
+            { l: 'Grade 6', u: 'https://drive.google.com/file/d/1RSRqHDBiEAajcft7q1CQgxHzUxOoXsc_/view?usp=sharing' },
+            { l: 'Grade 7', u: 'https://drive.google.com/file/d/11O5clBVaECgcbmAMFelPIaplgQAr5wGB/view?usp=sharing' },
+            { l: 'Grade 8', u: 'https://drive.google.com/file/d/1_o0bsYqo-b_dNL5yh1-7W3iFkeSq53_F/view?usp=sharing' }
+          ]},
+        { t: 'Expectations for Student Use of AI', u: 'https://docs.google.com/document/u/0/d/11lPxT4aSq7Q8Xh2Nqh0-QKc-UtqgJBcSC030RS8WDp4/edit', b: 'bhhs', tag: 'Grades 9\u201312',
+          d: 'Stoplight framework (Acceptable / Requires Permission / Unacceptable) with student-ready prompts. Share with students & families at the start of each year.' },
+        { t: 'Advanced Coursework Portfolio Application', u: 'https://drive.google.com/file/d/152r5dkXhs0inqKrTFhFaoVbSE6I-ijg4/view?usp=drivesdk', b: 'bhhs', tag: 'Grades 10\u201311',
+          d: 'Application for English 11 AP Lang & Comp and Grade 12 AP Lit / Perspectives in Literature.', due: 'Due January 19, 2027' },
+        { t: 'Grade 9 Vocabulary Lists', u: 'https://drive.google.com/file/d/1tyUBohL6uasgmJoBI4iyk9vhqLrriM12/view?usp=drivesdk', b: 'bhhs', tag: 'BHHS',
+          d: 'Fifteen vocabulary lists with definitions and sample sentences.' },
+        { t: 'Grade 9 Edit Notes', u: 'https://drive.google.com/file/d/10JjIJN7PZI_I4GZkqkS9V8g_d1tDQJZu/view?usp=drivesdk', b: 'bhhs', tag: 'BHHS',
+          d: 'Ten grammar units with practice and homework sentences.' }
+      ]},
+      { id: 'reference', name: 'Teacher Reference', items: [
+        { t: 'Academic Integrity Violation Report', u: 'https://forms.gle/9xLrqy6MhLbd8Jys6', b: 'bhhs', tag: 'BHHS',
+          d: 'Complete this form when a policy violation occurs.' },
+        { t: 'Turnitin.com Login', u: 'https://www.turnitin.com/login_page.asp?lang=en_us', b: 'bhhs', tag: 'BHHS',
+          d: 'All major writing assessments should be uploaded here.' },
+        { t: 'Atlas Curriculum Maps', u: 'https://byramhills.rubiconatlas.org/Atlas/Authentication/View/Login', b: 'both', tag: 'Grades 6\u201312',
+          d: 'Please update maps, as needed.' }
+      ]},
+      { id: 'schedules', name: 'Teaching Schedules', items: [
+        { t: 'BHHS English Department Schedule', u: 'https://drive.google.com/open?id=1NeJmurx4wtBuHC1gvX6NYHhI0PU-D1aY', b: 'bhhs', tag: 'BHHS',
+          d: 'Current teaching assignments and rooms.',
+          sub: [ { l: 'BHHS Bell Schedule', u: 'https://www.byramhills.org/uploaded/BHHS/2024-2025_School_Year/Master_Schedule/BHHS-MASTER-SCHEDULE_v041224.pdf' } ]},
+        { t: 'HCC English Department Schedule', u: 'https://drive.google.com/file/d/1vo7rDcZnbKwRvecF_Bv6LHUGo6qqtbpW/view?usp=sharing', b: 'hcc', tag: 'HCC',
+          d: 'Current teaching assignments and periods.',
+          sub: [ { l: 'HCC Bell Schedule', u: 'https://drive.google.com/file/d/1grRQnISw6tuXhJIuRs3r7AHFEIRnKcwG/view?usp=sharing' } ]}
+      ]},
+      { id: 'growth', name: 'Evaluation & Professional Growth', items: [
+        { t: 'APPR \u2014 Annual Professional Performance Review', u: 'https://www.byramhills.org/academics/profesional-learning/appr', b: 'both', tag: 'District',
+          d: 'Up-to-date links to the teacher evaluation system: Guide to Teacher Evaluation, Danielson Framework, PGP & Portfolio Project rubrics, NYS submission documents.' },
+        { t: 'Learning Communities', u: 'https://www.byramhills.org/academics/profesional-learning/learning-communities', b: 'both', tag: 'District',
+          d: 'District learning communities \u2014 dates and details below.' }
+      ]},
+      { id: 'materials', name: 'Reference Materials', items: [
+        { t: 'NYS Next Generation ELA Learning Standards', u: 'https://www.nysed.gov/sites/default/files/programs/curriculum-instruction/nys-next-generation-ela-standards.pdf', b: 'both', tag: 'P\u201312',
+          d: 'Includes a complete list of anchor standards through high school.' },
+        { t: 'Bard College IWT Protocols', u: 'https://drive.google.com/file/d/1UU4NAuPnUgekp8yrUwLk-M73b9_YbSxe/view?usp=drivesdk', b: 'both', tag: '6\u201312',
+          d: 'Protocols to guide teacher planning \u2014 useful as we develop plans for our work with Dr. Strom.' },
+        { t: 'Danielson Framework for Teaching', u: 'https://drive.google.com/file/d/1o9tBjpBE5IRFKpNr1b93TUiuzv87iQ9_/view?usp=drivesdk', b: 'both', tag: 'District',
+          d: '2013 Instructionally Focused Edition of the evaluation instrument.' },
+        { t: 'Adolescents and the Science of Reading', u: 'https://drive.google.com/file/d/10WzZUNOxgGeWglQL1NEFW5D7drHz7YvN/view?usp=drivesdk', b: 'both', tag: '6\u201312',
+          d: 'Dr. Carolyn Strom (NYU Steinhardt), August 2025 workshop \u2014 adolescent literacy, the reading brain, decoding threshold, fluency strategies. Cross-linked from Goals doc, Goal 1.' }
+      ]},
+      { id: 'confidential', name: 'Confidential Resources', confidential: true, items: [
+        { t: 'HCC Fluency Data 2025\u20132026', u: 'https://docs.google.com/spreadsheets/d/10AWKXMXCZgSteU_QkwzDFFYrFDgNm2LrfjH4JtmTBUM/edit?usp=drivesdk', b: 'hcc', tag: 'Grades 6\u20138',
+          d: 'Individual student fluency scores (WPM) \u2014 useful as we identify students for MTSS support.' },
+        { t: 'Writing Portfolio Submissions 2025\u20132026', u: 'https://docs.google.com/spreadsheets/d/1F97OBtFLJt3wNqDZdjFam2FcGqyosAKO4csc-qpJhxc/edit?usp=drivesdk', b: 'both', tag: '6\u201312',
+          d: 'Links to individual students\u2019 published ELA writing portfolios.' }
+      ]}
+    ];
+
+    const lcDates = [
+      { date: 'Oct 21, 2026', type: 'Regular' }, { date: 'Nov 18, 2026', type: 'Regular' },
+      { date: 'Dec 16, 2026', type: 'FLEX' }, { date: 'Jan 20, 2027', type: 'FLEX' },
+      { date: 'Feb 24, 2027', type: 'FLEX' }, { date: 'Mar 17, 2027', type: 'FLEX' },
+      { date: 'Apr 28, 2027', type: 'Regular' }, { date: 'May 19, 2027', type: 'Regular' }
+    ];
+
+    const bhhsTeachers = [
+      { n: 'Eshoo, Catherine', c: '323 \u2014 English 12 / English 10 / Perspectives in Lit' },
+      { n: 'Horn, Bryan', c: '319 \u2014 English 11 / Humanities Seminar: Podcasting' },
+      { n: 'Hubbs, David', c: '322 \u2014 Mentoring, Writing Workshop (S2) / English 10* / English 11' },
+      { n: 'Salomone, Megan', c: '217 \u2014 Writing Workshop (S1) / English 12 AP / English 12 / Speech Comm. (S2)' },
+      { n: 'Salvato, Jacqueline', c: '320 \u2014 Creative Writing (S1), Speech Comm. (S2) / English 11 / English 9' },
+      { n: 'Shaw, Jessica', c: '321 \u2014 Global Scholars / English 10 / English 11*' },
+      { n: 'Smith, Duane', c: '217 / 215 \u2014 English 9*' },
+      { n: 'Squadron, Lisa', c: '213 \u2014 Global Scholars / English 11 AP' },
+      { n: 'Vernola, Sarah', c: '215 \u2014 English 9' }
+    ];
+
+    const hccTeachers = [
+      { n: 'Buckley, Joanne', course: 'Language Arts 6', per: '1, 2, 5, 8*' },
+      { n: 'Cappello, Jeanine', course: 'Language Arts 8', per: '3, 4, 5*, 6' },
+      { n: 'Dawes, Kathryn', course: 'Language Arts 7', per: '1, 2, 3*, 4' },
+      { n: 'Ferraro, Dana', course: 'Language Arts 7', per: '1*, 2, 3, 4' },
+      { n: 'Fuller, Melinda', course: 'Language Arts 8', per: '3, 4, 5, 6' },
+      { n: 'Muir, Kacy', course: 'Literature 6', per: '1, 5, 7*, 8' },
+      { n: 'Smith, Kimberly', course: 'Literature 6', per: '1, 2*, 7, 8' },
+      { n: 'Vetter, Karen', course: 'Language Arts 6', per: '1*, 2, 7, 8' }
+    ];
+
+    return { meetings, groups, lcDates, bhhsTeachers, hccTeachers };
+  }
+
+  tagColors(item) {
+    if (item.tag === 'BHHS') return { tagBg: '#E8ECF6', tagFg: '#1C2A5E' };
+    if (item.tag === 'HCC') return { tagBg: '#F7E7E7', tagFg: '#A61B1B' };
+    return { tagBg: '#EFEDE6', tagFg: '#6A6E7A' };
+  }
+
+  matches(item, q) {
+    q = (q || '').trim().toLowerCase();
+    if (!q) return true;
+    const hay = (item.t + ' ' + item.d + ' ' + (item.tag || '') + ' ' + (item.sub || []).map(s => s.l).join(' ')).toLowerCase();
+    return hay.includes(q);
+  }
+
+  bldMatch(item, bld) {
+    if (bld === 'All') return true;
+    return item.b === 'both' || item.b === bld.toLowerCase();
+  }
+
+  decorate(item) {
+    return Object.assign({}, item, this.tagColors(item), { hasSub: !!(item.sub && item.sub.length) });
+  }
+
+  renderVals() {
+    const P = this.props;
+    const showConf = P.showConfidential ?? true;
+    const hlNext = P.highlightNextMeeting ?? true;
+    const st = this.state;
+    const DB = this.db();
+
+    // ---- next meeting ----
+    const today = new Date().toISOString().slice(0, 10);
+    let nextIso = null;
+    for (const m of DB.meetings) { if (m[0] && m[0] >= today) { nextIso = m[0]; break; } }
+
+    const meetingsA = DB.meetings.map(m => {
+      const isNext = hlNext && m[0] === nextIso;
+      const isNote = !m[0];
+      return {
+        date: m[1], bld: m[2], bldShort: m[3] === 'Both' ? 'BHHS/HCC' : m[3], isNext,
+        bg: isNext ? '#A61B1B' : (isNote ? '#EFEDE6' : '#FFFFFF'),
+        fg: isNext ? '#FFFFFF' : (isNote ? '#8A8D98' : '#23262F'),
+        bd: isNext ? '#A61B1B' : '#E3DFD4',
+        rowBg: isNext ? '#FBEFEF' : 'transparent',
+        rowFg: isNext ? '#A61B1B' : '#1C2A5E'
+      };
+    });
+
+    const nextM = DB.meetings.find(m => m[0] === nextIso);
+    const nextMeetingShort = nextM ? nextM[1] + ' \u00B7 ' + nextM[3].replace('Both', 'BHHS/HCC') : '\u2014';
+    const nextMeetingLong = nextM ? 'Thursday ' + nextM[1] + ' \u2014 ' + nextM[2] : '\u2014';
+
+    // ---- Option A ----
+    const setQA = (e) => this.setState({ qA: e.target.value });
+    const chipsA = ['All', 'BHHS', 'HCC'].map(v => {
+      const on = st.bldA === v;
+      return {
+        label: v, pick: () => this.setState({ bldA: v }),
+        bg: on ? '#1C2A5E' : '#FFFFFF', fg: on ? '#FFFFFF' : '#5A5E6A', bd: on ? '#1C2A5E' : '#E3DFD4'
+      };
+    });
+
+    let visibleA = 0;
+    const groupsA = DB.groups.filter(g => !g.confidential).map(g => {
+      const items = g.items.filter(i => this.matches(i, st.qA) && this.bldMatch(i, st.bldA)).map(i => this.decorate(i));
+      visibleA += items.length;
+      return {
+        id: g.id, name: g.name, items,
+        countLabel: items.length + (items.length === 1 ? ' link' : ' links'),
+        isPlanning: g.id === 'planning' && items.length > 0,
+        isSchedules: g.id === 'schedules' && items.length > 0,
+        isGrowth: g.id === 'growth' && items.length > 0
+      };
+    }).filter(g => g.items.length > 0);
+
+    const confA = DB.groups.find(g => g.confidential).items
+      .filter(i => this.matches(i, st.qA) && this.bldMatch(i, st.bldA)).map(i => this.decorate(i));
+    const showConfA = showConf && confA.length > 0;
+    const totalA = DB.groups.reduce((n, g) => n + g.items.length, 0);
+    const countLabelA = (visibleA + confA.length) + ' of ' + totalA + ' resources';
+
+    // ---- Option B ----
+    const setQB = (e) => this.setState({ qB: e.target.value });
+    const groupsB = DB.groups.filter(g => showConf || !g.confidential).map(g => {
+      const items = g.items.filter(i => this.matches(i, st.qB)).map(i => {
+        const d = this.decorate(i);
+        const copied = st.copied === i.u;
+        d.copy = () => {
+          try { navigator.clipboard.writeText(i.u); } catch (e) {}
+          this.setState({ copied: i.u });
+          clearTimeout(this._ct);
+          this._ct = setTimeout(() => this.setState({ copied: '' }), 1400);
+        };
+        d.copyLabel = copied ? 'Copied' : 'Copy link';
+        d.copyBg = copied ? '#1C2A5E' : '#FFFFFF';
+        d.copyFg = copied ? '#FFFFFF' : '#5A5E6A';
+        return d;
+      });
+      return {
+        id: g.id, name: g.name, items, confidential: !!g.confidential,
+        ruleColor: g.confidential ? '#A61B1B' : '#1C2A5E',
+        headFg: g.confidential ? '#A61B1B' : '#1C2A5E',
+        isPlanning: g.id === 'planning' && items.length > 0,
+        isSchedules: g.id === 'schedules' && items.length > 0,
+        isGrowth: g.id === 'growth' && items.length > 0
+      };
+    }).filter(g => g.items.length > 0);
+
+    const navB = DB.groups.filter(g => showConf || !g.confidential)
+      .map(g => ({ id: g.id, name: g.name, count: g.items.length }));
+
+    // ---- Option C ----
+    const activeC = st.tabC;
+    const tabsC = DB.groups.filter(g => showConf || !g.confidential).map(g => {
+      const on = g.id === activeC;
+      return {
+        name: g.name, pick: () => this.setState({ tabC: g.id }),
+        bg: on ? '#FFFFFF' : 'transparent',
+        fg: on ? (g.confidential ? '#A61B1B' : '#1C2A5E') : '#8A8D98',
+        bd: on ? '#E3DFD4' : 'transparent'
+      };
+    });
+    const groupC = DB.groups.find(g => g.id === activeC) || DB.groups[0];
+    const panelItems = groupC.items.map(i => this.decorate(i));
+
+    // ---- Option 2a (merged) ----
+    const setQ2 = (e) => this.setState({ q2: e.target.value });
+    const chips2 = ['All', 'BHHS', 'HCC'].map(v => {
+      const on = st.bld2 === v;
+      return {
+        label: v, pick: () => this.setState({ bld2: v }),
+        bg: on ? '#1C2A5E' : '#FFFFFF', fg: on ? '#FFFFFF' : '#5A5E6A', bd: on ? '#1C2A5E' : '#E3DFD4'
+      };
+    });
+    const searching2 = st.q2.trim().length > 0;
+
+    let visible2 = 0;
+    const groups2 = DB.groups.filter(g => showConf || !g.confidential).map(g => {
+      const items = g.items.filter(i => this.matches(i, st.q2) && this.bldMatch(i, st.bld2)).map(i => this.decorate(i));
+      visible2 += items.length;
+      return {
+        id: g.id, name: g.name, items, isConf: !!g.confidential,
+        countLabel: items.length + (items.length === 1 ? ' link' : ' links')
+      };
+    }).filter(g => g.items.length > 0);
+
+    const tabs2 = DB.groups.filter(g => showConf || !g.confidential).map(g => {
+      const on = !searching2 && st.tab2 === g.id;
+      return {
+        name: g.name,
+        pick: () => this.setState({ tab2: g.id, q2: '' }),
+        bg: on ? '#FFFFFF' : 'transparent',
+        fg: on ? (g.confidential ? '#A61B1B' : '#1C2A5E') : '#8A8D98',
+        bd: on ? '#E3DFD4' : 'transparent'
+      };
+    });
+
+    const group2 = DB.groups.find(g => g.id === st.tab2) || DB.groups[0];
+    const conf2 = DB.groups.find(g => g.confidential).items.filter(i => this.bldMatch(i, st.bld2)).map(i => this.decorate(i));
+    const panelItems2 = group2.confidential ? [] : group2.items.filter(i => this.bldMatch(i, st.bld2)).map(i => this.decorate(i));
+    const total2 = DB.groups.reduce((n, g) => n + g.items.length, 0);
+    const countLabel2 = searching2 ? (visible2 + (visible2 === 1 ? ' match' : ' matches')) : total2 + ' resources';
+
+    const meetings2 = DB.meetings
+      .filter(m => st.bld2 === 'All' || m[3] === 'Both' || m[3] === st.bld2)
+      .map(m => {
+        const isNext = hlNext && m[0] === nextIso;
+        const isPast = m[0] ? m[0] < today : false;
+        const isNote = !m[0];
+        return {
+          date: m[1], bld: m[2], isNext,
+          bg: isNext ? '#A61B1B' : (isPast || isNote ? '#EFEDE6' : '#FFFFFF'),
+          fg: isNext ? '#FFFFFF' : (isPast ? '#A9ACB5' : (isNote ? '#8A8D98' : '#23262F')),
+          bd: isNext ? '#A61B1B' : (isPast || isNote ? '#E9E6DD' : '#E3DFD4')
+        };
+      });
+    const nPast2 = DB.meetings.filter(m => m[0] && m[0] < today).length;
+    const nUpcoming2 = DB.meetings.filter(m => m[0] && m[0] >= today && m[0] !== nextIso).length;
+    const toggleSched2 = () => this.setState({ sched2: !st.sched2 });
+    const schedLabel2 = st.sched2 ? 'Hide full schedule' : 'Show full schedule';
+    const schedSummary2 = nUpcoming2 + ' more meetings this year' + (nPast2 ? ' \u00B7 ' + nPast2 + ' past' : '');
+
+    return {
+      q2: st.q2, setQ2, chips2, countLabel2, tabs2, groups2, panelItems2, conf2,
+      searching2, notSearching2: !searching2,
+      meetings2, next2Date: nextM ? nextM[1] : '\u2014', next2Bld: nextM ? nextM[2] : '',
+      sched2: st.sched2, notSched2: !st.sched2, toggleSched2, schedLabel2, schedSummary2,
+      panel2Planning: !searching2 && st.tab2 === 'planning',
+      panel2Schedules: !searching2 && st.tab2 === 'schedules',
+      panel2Growth: !searching2 && st.tab2 === 'growth',
+      panel2Confidential: !searching2 && st.tab2 === 'confidential' && showConf,
+
+      qA: st.qA, setQA, chipsA, countLabelA, groupsA, meetingsA, confA, showConfA,
+      lcDates: DB.lcDates.map(lc => ({
+        date: lc.date, type: lc.type,
+        bg: lc.type === 'FLEX' ? '#F7E7E7' : '#EFEDE6',
+        fg: lc.type === 'FLEX' ? '#A61B1B' : '#6A6E7A'
+      })),
+      bhhsTeachers: DB.bhhsTeachers, hccTeachers: DB.hccTeachers,
+      qB: st.qB, setQB, groupsB, navB, nextMeetingShort, nextMeetingLong,
+      showNextBanner: hlNext,
+      tabsC, panelItems,
+      panelPlanning: activeC === 'planning',
+      panelSchedules: activeC === 'schedules',
+      panelGrowth: activeC === 'growth',
+      panelConfidential: activeC === 'confidential'
+    };
+  }
+}
+</script>
+</body>
+</html>
