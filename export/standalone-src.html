@@ -29,8 +29,8 @@
     <!-- Masthead -->
     <div style="background:#1C2A5E; padding:26px 36px; display:flex; align-items:center; gap:22px;">
       <div style="display:flex; gap:10px; flex:none;">
-        <a href="https://www.byramhills.org/bhhs" target="_blank"><img src="../assets/image1.png" alt="BHHS shield" style="height:56px; width:auto;"></a>
-        <a href="https://www.byramhills.org/hcc" target="_blank"><img src="../assets/image2.png" alt="HCC shield" style="height:56px; width:auto;"></a>
+        <a href="https://www.byramhills.org/bhhs" target="_blank"><img src="../assets/shield-bhhs.png" alt="BHHS shield" style="height:56px; width:auto;"></a>
+        <a href="https://www.byramhills.org/hcc" target="_blank"><img src="../assets/shield-hcc.png" alt="HCC shield" style="height:56px; width:auto;"></a>
       </div>
       <div style="display:flex; flex-direction:column; gap:3px;">
         <span style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#9FAAD1; font-weight:600;">Byram Hills Central School District</span>
@@ -38,7 +38,6 @@
       </div>
       <div style="margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
         <span style="font-family:'Source Serif 4', Georgia, serif; font-size:20px; font-style:italic; color:#C9D1E8;">2026–2027</span>
-        <span style="font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#7E8BB8; font-weight:600;">Faculty edition</span>
       </div>
     </div>
 
@@ -189,37 +188,91 @@
 
           <!-- Teacher tables (Schedules tab) -->
           <sc-if value="{{ panelSchedules }}" hint-placeholder-val="{{ false }}">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-              <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="width:10px; height:10px; border-radius:3px; background:#1C2A5E;"></span>
-                  <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">BHHS English</span>
-                </div>
-                <div style="display:flex; flex-direction:column;">
-                  <sc-for list="{{ bhhsTeachers }}" as="t" hint-placeholder-count="4">
-                    <div style="display:grid; grid-template-columns:150px 1fr; gap:12px; padding:7px 0; border-bottom:1px solid #ECE9E0; font-size:12.5px;">
-                      <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
-                      <span style="color:#5A5E6A;">{{ t.c }}</span>
+            <div style="display:flex; flex-direction:column; gap:26px;">
+
+              <!-- Schedule links -->
+              <div style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px;">
+                <sc-if value="{{ showBhhsList }}" hint-placeholder-val="{{ true }}">
+                  <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-left:4px solid #1C2A5E; border-radius:10px; padding:18px 22px; display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                      <span style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:#E8ECF6; color:#1C2A5E;">BHHS</span>
+                      <span style="font-size:12px; color:#8A8D98;">Teaching assignments &amp; rooms</span>
                     </div>
-                  </sc-for>
-                </div>
-                <span style="font-size:11px; color:#8A8D98;">* Co-taught section(s)</span>
+                    <a href="https://drive.google.com/open?id=1NeJmurx4wtBuHC1gvX6NYHhI0PU-D1aY" target="_blank" style="display:block; border:1px solid #E3DFD4; border-radius:8px; overflow:hidden; background:#FFFFFF; line-height:0;" style-hover="border-color:#1C2A5E;">
+                      <img src="../assets/schedule-bhhs.png" alt="BHHS English Department Schedule preview" style="display:block; width:100%; height:auto; object-fit:contain;">
+                    </a>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                      <a href="https://drive.google.com/open?id=1NeJmurx4wtBuHC1gvX6NYHhI0PU-D1aY" target="_blank" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; font-weight:600; color:#FFFFFF; text-decoration:none; background:#1C2A5E; border-radius:8px; padding:10px 16px;" style-hover="opacity:0.88;">View full schedule →</a>
+                      <a href="https://www.byramhills.org/uploaded/BHHS/2024-2025_School_Year/Master_Schedule/BHHS-MASTER-SCHEDULE_v041224.pdf" target="_blank" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; font-weight:600; color:#1C2A5E; text-decoration:none; background:#FFFFFF; border:1px solid #E3DFD4; border-radius:8px; padding:10px 16px;" style-hover="background:#F0EDE5;">Bell schedule →</a>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ showHccList }}" hint-placeholder-val="{{ true }}">
+                  <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-left:4px solid #A61B1B; border-radius:10px; padding:18px 22px; display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                      <span style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; border-radius:999px; padding:4px 9px; background:#F7E7E7; color:#A61B1B;">HCC</span>
+                      <span style="font-size:12px; color:#8A8D98;">Teaching assignments &amp; periods</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1vo7rDcZnbKwRvecF_Bv6LHUGo6qqtbpW/view?usp=sharing" target="_blank" style="display:block; border:1px solid #E3DFD4; border-radius:8px; overflow:hidden; background:#FFFFFF; line-height:0;" style-hover="border-color:#A61B1B;">
+                      <img src="../assets/schedule-hcc.png" alt="HCC ELA Department Schedule preview" style="display:block; width:100%; height:auto; object-fit:contain;">
+                    </a>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                      <a href="https://drive.google.com/file/d/1vo7rDcZnbKwRvecF_Bv6LHUGo6qqtbpW/view?usp=sharing" target="_blank" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; font-weight:600; color:#FFFFFF; text-decoration:none; background:#A61B1B; border-radius:8px; padding:10px 16px;" style-hover="opacity:0.88;">View full schedule →</a>
+                      <a href="https://drive.google.com/file/d/1grRQnISw6tuXhJIuRs3r7AHFEIRnKcwG/view?usp=sharing" target="_blank" style="font-family:'Libre Franklin', Helvetica, sans-serif; font-size:13px; font-weight:600; color:#A61B1B; text-decoration:none; background:#FFFFFF; border:1px solid #E3DFD4; border-radius:8px; padding:10px 16px;" style-hover="background:#F0EDE5;">Bell schedule →</a>
+                    </div>
+                  </div>
+                </sc-if>
               </div>
-              <div style="background:#F7F5F0; border:1px solid #E3DFD4; border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="width:10px; height:10px; border-radius:3px; background:#A61B1B;"></span>
-                  <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">HCC English</span>
-                </div>
-                <div style="display:flex; flex-direction:column;">
-                  <sc-for list="{{ hccTeachers }}" as="t" hint-placeholder-count="4">
-                    <div style="display:grid; grid-template-columns:150px 1fr 80px; gap:12px; padding:7px 0; border-bottom:1px solid #ECE9E0; font-size:12.5px;">
-                      <span style="font-weight:600; color:#23262F;">{{ t.n }}</span>
-                      <span style="color:#5A5E6A;">{{ t.course }}</span>
-                      <span style="color:#5A5E6A;">{{ t.per }}</span>
+
+              <!-- Teacher assignments -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                <sc-if value="{{ showBhhsList }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:9px; padding-bottom:8px; border-bottom:2px solid #1C2A5E;">
+                      <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">BHHS English</span>
+                      <span style="font-size:11px; color:#8A8D98;">Room · Courses</span>
                     </div>
-                  </sc-for>
-                </div>
-                <span style="font-size:11px; color:#8A8D98;">* Co-taught section</span>
+                    <div style="display:flex; flex-direction:column; gap:11px;">
+                      <sc-for list="{{ bhhsTeachers }}" as="t" hint-placeholder-count="5">
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                          <div style="display:flex; align-items:baseline; gap:9px;">
+                            <span style="font-size:13.5px; font-weight:600; color:#23262F;">{{ t.n }}</span>
+                            <span style="font-family:ui-monospace, Menlo, monospace; font-size:11px; font-weight:600; color:#1C2A5E; background:#E8ECF6; border-radius:4px; padding:2px 7px;">{{ t.room }}</span>
+                          </div>
+                          <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                            <sc-for list="{{ t.courses }}" as="c" hint-placeholder-count="2">
+                              <span style="font-size:11.5px; color:#5A5E6A; background:#F7F5F0; border:1px solid #ECE9E0; border-radius:5px; padding:3px 8px;">{{ c }}</span>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ showHccList }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:9px; padding-bottom:8px; border-bottom:2px solid #A61B1B;">
+                      <span style="font-family:'Source Serif 4', Georgia, serif; font-size:15.5px; font-weight:600; color:#1C2A5E;">HCC English</span>
+                      <span style="font-size:11px; color:#8A8D98;">Room · Courses</span>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:11px;">
+                      <sc-for list="{{ hccTeachers }}" as="t" hint-placeholder-count="5">
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                          <div style="display:flex; align-items:baseline; gap:9px;">
+                            <span style="font-size:13.5px; font-weight:600; color:#23262F;">{{ t.n }}</span>
+                            <span style="font-family:ui-monospace, Menlo, monospace; font-size:11px; font-weight:600; color:#A61B1B; background:#F7E7E7; border-radius:4px; padding:2px 7px;">{{ t.room }}</span>
+                          </div>
+                          <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                            <sc-for list="{{ t.courses }}" as="c" hint-placeholder-count="1">
+                              <span style="font-size:11.5px; color:#5A5E6A; background:#F7F5F0; border:1px solid #ECE9E0; border-radius:5px; padding:3px 8px;">{{ c }}</span>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
               </div>
             </div>
           </sc-if>
@@ -272,32 +325,50 @@ class Component extends DCLogic {
     ];
 
     const groups = [
-      { id: 'planning', name: 'Departmental Planning', items: [
+      { id: 'planning', name: 'Departmental Goals', items: [
         { t: 'ELA Department Goals', u: 'https://docs.google.com/document/d/12UGpf0mIuhWWQ03GOgd3K5fN0WY2ll8ezxJlRXOcs1Y/edit?usp=drivesdk', b: 'both', tag: '6\u201312',
-          d: 'Guides departmental work all year: literacy research (Goal 1), college-readiness alignment (Goal 2), and AI literacy integration (Goal 3).' }
-      ]},
-      { id: 'resources', name: 'Students, Teachers & Families', items: [
+          d: 'Guides departmental work all year: literacy research (Goal 1), college-readiness alignment (Goal 2), AI literacy integration (Goal 3), and ICT models & partnerships (Goal 4).' },
         { t: 'Independent Reading', u: 'https://dsmith-bhhs.github.io/independent_reading/', b: 'both', tag: '6\u201312',
           d: 'Suggestions for year-round independent reading, grades 6\u201312, including required texts for AP Lang, AP Lit & Perspectives in Literature.',
           sub: [
             { l: 'Submission Form', u: 'https://forms.gle/yW2JQB3EPtoE5t9b7' }
           ]},
-        { t: 'Expectations for Student Use of AI', u: 'https://docs.google.com/document/u/0/d/11lPxT4aSq7Q8Xh2Nqh0-QKc-UtqgJBcSC030RS8WDp4/edit', b: 'bhhs', tag: 'Grades 9\u201312',
-          d: 'Stoplight framework (Acceptable / Requires Permission / Unacceptable) with student-ready prompts. Share with students & families at the start of each year.' },
+        { t: 'Student Showcase', u: 'https://www.byramhills.org/academics/academic-departments/english-language-arts/student-showcase', b: 'both', tag: 'Grades 6\u201312',
+          d: 'Published student work from across the department \u2014 submit pieces to be featured.' }
+      ]},
+      { id: 'resources', name: 'Students, Teachers & Families', items: [
         { t: 'Advanced Coursework Portfolio Application', u: 'https://drive.google.com/file/d/152r5dkXhs0inqKrTFhFaoVbSE6I-ijg4/view?usp=drivesdk', b: 'bhhs', tag: 'Grades 10\u201311',
           d: 'Application for English 11 AP Lang & Comp and Grade 12 AP Lit / Perspectives in Literature.', due: 'Due January 19, 2027' },
+        { t: 'Expectations for Student Use of AI', u: 'https://docs.google.com/document/u/0/d/11lPxT4aSq7Q8Xh2Nqh0-QKc-UtqgJBcSC030RS8WDp4/edit', b: 'bhhs', tag: 'Grades 9\u201312',
+          d: 'Stoplight framework (Acceptable / Requires Permission / Unacceptable) with student-ready prompts. Share with students & families at the start of each year.' },
+        { t: 'Grade 9 Edit Notes', u: 'https://drive.google.com/file/d/10JjIJN7PZI_I4GZkqkS9V8g_d1tDQJZu/view?usp=drivesdk', b: 'bhhs', tag: 'BHHS',
+          d: 'Ten grammar units with practice and homework sentences.' },
         { t: 'Grade 9 Vocabulary Lists', u: 'https://drive.google.com/file/d/1tyUBohL6uasgmJoBI4iyk9vhqLrriM12/view?usp=drivesdk', b: 'bhhs', tag: 'BHHS',
           d: 'Fifteen vocabulary lists with definitions and sample sentences.' },
-        { t: 'Grade 9 Edit Notes', u: 'https://drive.google.com/file/d/10JjIJN7PZI_I4GZkqkS9V8g_d1tDQJZu/view?usp=drivesdk', b: 'bhhs', tag: 'BHHS',
-          d: 'Ten grammar units with practice and homework sentences.' }
+        { t: 'Independent Reading', u: 'https://dsmith-bhhs.github.io/independent_reading/', b: 'both', tag: '6\u201312',
+          d: 'Suggestions for year-round independent reading, grades 6\u201312, including required texts for AP Lang, AP Lit & Perspectives in Literature.',
+          sub: [
+            { l: 'Submission Form', u: 'https://forms.gle/yW2JQB3EPtoE5t9b7' }
+          ]},
+        { t: 'Updated Junior Portfolio', u: '../assets/BHHS English Portfolio.pdf', b: 'bhhs', tag: 'BHHS',
+          due: 'Class of 2029 and beyond',
+          d: 'Revised summer 2025. Seven Portrait of a Graduate components, general expectations, suggested evidence, and the junior-year rubric. Begun in grade 9; graded at the end of junior year (10% of the English 11 final grade).' }
       ]},
       { id: 'reference', name: 'Teacher Reference', items: [
         { t: 'Academic Integrity Violation Report', u: 'https://forms.gle/9xLrqy6MhLbd8Jys6', b: 'bhhs', tag: 'BHHS',
           d: 'Complete this form when a policy violation occurs.' },
-        { t: 'Turnitin.com Login', u: 'https://www.turnitin.com/login_page.asp?lang=en_us', b: 'bhhs', tag: 'BHHS',
-          d: 'All major writing assessments should be uploaded here.' },
         { t: 'Atlas Curriculum Maps', u: 'https://byramhills.rubiconatlas.org/Atlas/Authentication/View/Login', b: 'both', tag: 'Grades 6\u201312',
-          d: 'Please update maps, as needed.' }
+          d: 'Please update maps, as needed.' },
+        { t: 'BHTA Benefit Fund', u: 'https://docs.google.com/document/d/1UZddBvl_SOcryJQSI6ccptArrEqwkNp0CgZSiptPTG4/edit?usp=sharing', b: 'both', tag: 'District',
+          d: 'Quick links for BHTA Benefit Fund claims, forms, and member resources.' },
+        { t: 'Droplet', u: 'https://app.droplet.io/home', b: 'both', tag: 'Grades 6\u201312',
+          d: 'Submit summer curriculum work here.' },
+        { t: 'Frontline Education', u: 'https://app.frontlineeducation.com/select/', b: 'both', tag: 'District',
+          d: 'Absence management and professional learning \u2014 request absences and find a substitute.' },
+        { t: 'Naviance', u: 'https://id.naviance.com/', b: 'bhhs', tag: 'BHHS',
+          d: 'Submit college recommendation letters and access student college planning records.' },
+        { t: 'Turnitin.com', u: 'https://www.turnitin.com/login_page.asp?lang=en_us', b: 'bhhs', tag: 'BHHS',
+          d: 'All major writing assessments should be uploaded here.' }
       ]},
       { id: 'schedules', name: 'Teaching Schedules', items: [
         { t: 'BHHS English Department Schedule', u: 'https://drive.google.com/open?id=1NeJmurx4wtBuHC1gvX6NYHhI0PU-D1aY', b: 'bhhs', tag: 'BHHS',
@@ -311,7 +382,9 @@ class Component extends DCLogic {
         { t: 'APPR \u2014 Annual Professional Performance Review', u: 'https://www.byramhills.org/academics/profesional-learning/appr', b: 'both', tag: 'District',
           d: 'Up-to-date links to the teacher evaluation system: Guide to Teacher Evaluation, Danielson Framework, PGP & Portfolio Project rubrics, NYS submission documents.' },
         { t: 'Learning Communities', u: 'https://www.byramhills.org/academics/profesional-learning/learning-communities', b: 'both', tag: 'District',
-          d: 'District learning communities \u2014 dates and details below.' }
+          d: 'District learning communities \u2014 dates and details below.' },
+        { t: 'StaffTrac', u: 'https://byramhillsny.edvistas.com/evicore/', b: 'both', tag: 'District',
+          d: 'Teacher evaluation platform \u2014 observations, artifacts, and end-of-year review documents.' }
       ]},
       { id: 'materials', name: 'Reference Materials', items: [
         { t: 'NYS Next Generation ELA Learning Standards', u: 'https://www.nysed.gov/sites/default/files/programs/curriculum-instruction/nys-next-generation-ela-standards.pdf', b: 'both', tag: 'P\u201312',
@@ -339,26 +412,26 @@ class Component extends DCLogic {
     ];
 
     const bhhsTeachers = [
-      { n: 'Eshoo, Catherine', c: '323 \u2014 English 12 / English 10 / Perspectives in Lit' },
-      { n: 'Horn, Bryan', c: '319 \u2014 English 11 / Humanities Seminar: Podcasting' },
-      { n: 'Hubbs, David', c: '322 \u2014 Mentoring, Writing Workshop (S2) / English 10* / English 11' },
-      { n: 'Salomone, Megan', c: '217 \u2014 Writing Workshop (S1) / English 12 AP / English 12 / Speech Comm. (S2)' },
-      { n: 'Salvato, Jacqueline', c: '320 \u2014 Creative Writing (S1), Speech Comm. (S2) / English 11 / English 9' },
-      { n: 'Shaw, Jessica', c: '321 \u2014 Global Scholars / English 10 / English 11*' },
-      { n: 'Smith, Duane', c: '217 / 215 \u2014 English 9*' },
-      { n: 'Squadron, Lisa', c: '213 \u2014 Global Scholars / English 11 AP' },
-      { n: 'Vernola, Sarah', c: '215 \u2014 English 9' }
+      { n: 'Eshoo, Catherine', room: '323', courses: ['English 12', 'English 10', 'Perspectives in Lit'] },
+      { n: 'Horn, Bryan', room: '319', courses: ['English 11', 'Humanities Sem: Podcasting'] },
+      { n: 'Hubbs, David', room: '322', courses: ['English 11', 'English 10', 'Writing Workshop (S2)', 'Mentoring'] },
+      { n: 'Salomone, Megan', room: '217', courses: ['English 12 AP', 'English 12', 'Writing Workshop (S1)', 'Speech Comm. (S2)'] },
+      { n: 'Salvato, Jacqueline', room: '320', courses: ['English 11', 'English 9', 'Creative Writing (S1)', 'Speech Comm. (S2)'] },
+      { n: 'Shaw, Jessica', room: '321', courses: ['English 11', 'English 10', 'Global Scholars'] },
+      { n: 'Smith, Duane', room: '217 / 215', courses: ['English 9'] },
+      { n: 'Squadron, Lisa', room: '213', courses: ['English 11 AP', 'Global Scholars'] },
+      { n: 'Vernola, Sarah', room: '215', courses: ['English 9'] }
     ];
 
     const hccTeachers = [
-      { n: 'Buckley, Joanne', course: 'Language Arts 6', per: '1, 2, 5, 8*' },
-      { n: 'Cappello, Jeanine', course: 'Language Arts 8', per: '3, 4, 5*, 6' },
-      { n: 'Dawes, Kathryn', course: 'Language Arts 7', per: '1, 2, 3*, 4' },
-      { n: 'Ferraro, Dana', course: 'Language Arts 7', per: '1*, 2, 3, 4' },
-      { n: 'Fuller, Melinda', course: 'Language Arts 8', per: '3, 4, 5, 6' },
-      { n: 'Muir, Kacy', course: 'Literature 6', per: '1, 5, 7*, 8' },
-      { n: 'Smith, Kimberly', course: 'Literature 6', per: '1, 2*, 7, 8' },
-      { n: 'Vetter, Karen', course: 'Language Arts 6', per: '1*, 2, 7, 8' }
+      { n: 'Buckley, Joanne', room: '149', courses: ['Language Arts 6'] },
+      { n: 'Cappello, Jeanine', room: '213', courses: ['Language Arts 8'] },
+      { n: 'Dawes, Kathryn', room: '203', courses: ['Language Arts 7'] },
+      { n: 'Ferraro, Dana', room: '201', courses: ['Language Arts 7'] },
+      { n: 'Fuller, Melinda', room: '212', courses: ['Language Arts 8'] },
+      { n: 'Muir, Kacy', room: '140', courses: ['Literature 6'] },
+      { n: 'Smith, Kimberly', room: '145', courses: ['Literature 6'] },
+      { n: 'Vetter, Karen', room: '139', courses: ['Language Arts 6'] }
     ];
 
     return { meetings, groups, lcDates, bhhsTeachers, hccTeachers };
@@ -431,7 +504,23 @@ class Component extends DCLogic {
 
     const group = DB.groups.find(g => g.id === st.tab) || DB.groups[0];
     const confItems = DB.groups.find(g => g.confidential).items.filter(i => this.bldMatch(i, st.bld)).map(i => this.decorate(i));
-    const panelItems = group.confidential ? [] : group.items.filter(i => this.bldMatch(i, st.bld)).map(i => this.decorate(i));
+    const isSchedTab = st.tab === 'schedules';
+    const panelItems = (group.confidential || isSchedTab) ? [] : group.items.filter(i => this.bldMatch(i, st.bld)).map(i => this.decorate(i));
+
+    const tileDefs = [
+      { school: 'BHHS', label: 'BHHS English Schedule', note: 'Teaching assignments & rooms', thumb: '../assets/schedule-bhhs.png', u: 'https://drive.google.com/open?id=1NeJmurx4wtBuHC1gvX6NYHhI0PU-D1aY',
+        bell: 'BHHS Bell Schedule', bellU: 'https://www.byramhills.org/uploaded/BHHS/2024-2025_School_Year/Master_Schedule/BHHS-MASTER-SCHEDULE_v041224.pdf' },
+      { school: 'HCC', label: 'HCC English Schedule', note: 'Teaching assignments & periods', thumb: '../assets/schedule-hcc.png', u: 'https://drive.google.com/file/d/1vo7rDcZnbKwRvecF_Bv6LHUGo6qqtbpW/view?usp=sharing',
+        bell: 'HCC Bell Schedule', bellU: 'https://drive.google.com/file/d/1grRQnISw6tuXhJIuRs3r7AHFEIRnKcwG/view?usp=sharing' }
+    ];
+    const scheduleTiles = tileDefs
+      .filter(t => st.bld === 'All' || t.school === st.bld)
+      .map(t => Object.assign({}, t, t.school === 'BHHS'
+        ? { accent: '#1C2A5E', chipBg: '#E8ECF6', chipFg: '#1C2A5E' }
+        : { accent: '#A61B1B', chipBg: '#F7E7E7', chipFg: '#A61B1B' }));
+
+    const showBhhsList = st.bld !== 'HCC';
+    const showHccList = st.bld !== 'BHHS';
     const total = DB.groups.reduce((n, g) => n + g.items.length, 0);
     const countLabel = searching ? (visible + (visible === 1 ? ' match' : ' matches')) : total + ' resources';
 
@@ -468,7 +557,8 @@ class Component extends DCLogic {
         bg: lc.type === 'FLEX' ? '#F7E7E7' : '#EFEDE6',
         fg: lc.type === 'FLEX' ? '#A61B1B' : '#6A6E7A'
       })),
-      bhhsTeachers: DB.bhhsTeachers, hccTeachers: DB.hccTeachers
+      bhhsTeachers: DB.bhhsTeachers, hccTeachers: DB.hccTeachers,
+      scheduleTiles, showBhhsList, showHccList
     };
   }
 }
